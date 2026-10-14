@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sto godina Adžijine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Vremenska lenta stogodišnjice Knjižnice Božidara Adžije, 1927. – 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: kartotečna lenta — godina kao signatura u lijevom stupcu, događaj kao kataložni listić desno; razdoblja kao ladice kataloga */
+:root{
+  --paper:#eef0ec;      /* papir kataloškog listića, hladno sivo-zelen */
+  --card:#fbfcf9;
+  --ink:#17202b;        /* tinta */
+  --muted:#5b6670;
+  --rule:#c9cfc8;
+  --stamp:#b3322b;      /* crveni pečat knjižnice */
+  --stamp-soft:#f3dcd8;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#12171d;--card:#1a2129;--ink:#e6e9e4;--muted:#9aa5ae;--rule:#2e3842;--stamp:#e2665c;--stamp-soft:#3a2224;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#12171d;--card:#1a2129;--ink:#e6e9e4;--muted:#9aa5ae;--rule:#2e3842;--stamp:#e2665c;--stamp-soft:#3a2224;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--stamp)}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px}
+
+/* Hero */
+.hero{padding-block:56px 32px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 40px;align-items:end;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(56px,11vw,132px);line-height:.86;letter-spacing:-.01em;margin:10px 0 0;text-transform:uppercase;text-wrap:balance}
+.hero h1 span{display:block;color:var(--stamp)}
+.hero p{max-width:58ch;margin:18px 0 0;color:var(--muted);font-size:18px}
+.stamp{width:150px;height:150px;border:3px solid var(--stamp);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--stamp);transform:rotate(-9deg);font-family:var(--display);font-weight:700;line-height:1;padding:12px;position:relative}
+.stamp::before{content:"";position:absolute;inset:7px;border:1px solid var(--stamp);border-radius:50%}
+.stamp b{font-size:46px;display:block}
+.stamp small{font-family:var(--mono);font-size:10px;letter-spacing:.12em;font-weight:500;display:block;margin-top:4px}
+@media (max-width:640px){.hero{grid-template-columns:1fr}.stamp{width:110px;height:110px;justify-self:end;margin-top:-10px}.stamp b{font-size:34px}}
+
+/* Kontrole */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);padding-block:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1 1 420px;min-width:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{font-family:var(--mono);font-size:12px;white-space:nowrap;border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:6px 10px;border-radius:2px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.search{flex:0 1 240px;min-width:0;font:inherit;font-size:15px;padding:7px 10px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:2px}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* Razdoblja */
+.era{padding-block:44px 8px}
+.era-head{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:baseline;margin-bottom:22px}
+.era-head .drawer{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--rule);padding:4px 8px;justify-self:start;background:var(--card)}
+.era-head h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.6vw,46px);line-height:1;margin:0;text-transform:uppercase;text-wrap:balance}
+
+/* Događaji */
+.ev{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;position:relative;padding-bottom:18px}
+.ev::before{content:"";position:absolute;left:162px;top:0;bottom:0;width:1px;background:var(--rule)}
+.year{font-family:var(--display);font-weight:800;font-size:44px;line-height:.9;text-align:right;font-variant-numeric:tabular-nums;padding-top:10px}
+.year small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+.card{background:var(--card);border:1px solid var(--rule);padding:18px 22px 20px;position:relative;margin-left:8px;
+  background-image:linear-gradient(transparent 0 0);}
+.card::before{content:"";position:absolute;left:-15px;top:22px;width:9px;height:9px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.card h3{font-family:var(--body);font-weight:600;font-size:21px;line-height:1.25;margin:0 0 6px;text-wrap:balance}
+.card p{margin:0;max-width:62ch}
+.sig{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--rule);padding-bottom:8px;margin-bottom:12px}
+.ev.key .card{border-color:var(--ink);border-width:1px 1px 1px 1px;box-shadow:6px 6px 0 var(--stamp-soft)}
+.ev.key .card::before{background:var(--stamp);border-color:var(--stamp)}
+.ev.key .year{color:var(--stamp);font-size:58px}
+.ev.key h3{font-size:25px}
+.ev.key .sig .mark{color:var(--stamp);font-weight:500}
+figure{margin:14px 0 0}
+figure button{all:unset;cursor:zoom-in;display:block;width:100%}
+figure img{display:block;width:100%;max-height:420px;object-fit:cover;filter:grayscale(.15);border:1px solid var(--rule);background:var(--paper)}
+.ev:not(.key) figure img{max-height:260px}
+figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+@media (max-width:640px){
+  .era-head,.ev{grid-template-columns:1fr;gap:6px}
+  .ev::before{display:none}
+  .year{text-align:left;font-size:36px;padding-top:0;display:flex;align-items:baseline;gap:10px}
+  .year small{margin-top:0}
+  .ev.key .year{font-size:42px}
+  .card{margin-left:0}.card::before{display:none}
+}
+.empty{padding-block:60px;text-align:center;color:var(--muted)}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted);padding-block:10px}
+footer{border-top:2px solid var(--ink);margin-top:48px;padding-block:24px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;font-size:14px;color:var(--muted)}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:20;background:rgba(10,14,18,.88);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb img{max-width:100%;max-height:82vh;object-fit:contain}
+.lb p{color:#e6e9e4;font-family:var(--mono);font-size:12px;text-align:center;margin:10px 0 0}
+.lb button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));font:500 14px var(--mono);background:#e6e9e4;color:#17202b;border:0;padding:8px 12px;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .2s ease}.card:hover{transform:translateY(-2px)}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Knjižnice grada Zagreba · Trg kralja Petra Krešimira IV</div>
+      <h1>Sto godina <span>Adžijine</span></h1>
+      <p>Od dvije sobice na Starčevićevu trgu 1927. do Knjižnice Božidara Adžije danas: vremenska lenta događaja, ljudi i knjiga.</p>
+    </div>
+    <div class="stamp" aria-hidden="true"><div><b>100</b><small>1927 · 2027</small></div></div>
+  </header>
+
+  <nav class="bar" aria-label="Razdoblja">
+    <div class="chips" id="chips"></div>
+    <input class="search" id="q" type="search" placeholder="Traži događaj…" aria-label="Traži događaj">
+    <span class="count" id="count"></span>
+  </nav>
+  <div class="note" id="note" hidden></div>
+
+  <main id="tl"></main>
+
+  <footer>
+    <span>Knjižnica Božidara Adžije · Knjižnice grada Zagreba</span>
+    <span>Izvor: P. Bonča, <em>U traganju za institucijom</em> (1927. – 2027.)</span>
+  </footer>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Fotografija">
+  <button id="lbx" type="button">Zatvori</button>
+  <div><img id="lbi" alt=""><p id="lbc"></p></div>
+</div>
+
+<script>
+/* ============ POSTAVKE ============
+   Zalijepite poveznicu na tablicu objavljenu kao CSV:
+   Google Sheets → Datoteka → Dijeli → Objavi na webu → list „Događaji“ → CSV.
+   Ako je prazno ili se tablica ne učita, prikazuju se ugrađeni podaci. */
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBfTRf0wJEmb7pBfgmeSJwHtfPCOAVSOPjwCermIB0O2h3l5fGwgM4KZB9dOZ_rdW5HhFyliCVYvN2/pub?gid=1861103028&single=true&output=csv";
+
+const FALLBACK = [{"godina": 1925, "datum": "28. 12. 1925.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Osnovana Radnička akademija", "tekst": "Radnička komora u Zagrebu osniva Radničku akademiju u Radničkom domu u Ilici 55. Proračun za 1925. predviđa 100 000 dinara za knjige i osnivanje „biblioteke i čitaonice“.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1926, "datum": "kolovoz 1926.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Prva velika narudžba knjiga", "tekst": "Radnička komora naručuje dvjestotinjak knjiga od knjižare St. Kugli: Kautsky i Bebel uz Dostojevskog, Tolstoja, Krležu, Vernea, Maya i Londona. Popis je program buduće knjižnice u malom.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1926, "datum": "23. 11. 1926.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Otvorena Radnička čitaonica", "tekst": "U dvije male prostorije u prizemlju kuće Mudrovčić na Starčevićevu trgu 18 (danas Svačićev trg 17) otvara se Radnička čitaonica. Prije toga privremeno je djelovala u Gajevoj ulici i u Petrinjskoj 40.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1927, "datum": "8. 1. 1927.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Radnička biblioteka otvorena za javnost", "tekst": "Na proslavi u velikoj dvorani u Ilici 55 govore Pero Marjanović i Božidar Adžija, a pjevačko društvo „Jednakost“ pjeva Marseljezu. Adžija knjižnici zadaje da radniku „otvori i proširi njegov vidokrug“.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1927, "datum": "1927.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Čitaonica sa 65 naslova periodike", "tekst": "Čitaonica nudi 35 novina i 30 revija, domaćih i stranih: od Obzora i Politike do bečkog Arbeiter-Zeitunga i berlinskog Vorwärtsa.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1927, "datum": "1927.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Prva selidba: Haulikova 10", "tekst": "Biblioteka i čitaonica sele se na treći kat u Haulikovu ulicu 10. Sredinom 1927. biblioteka ima tek 82 člana.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1928, "datum": "veljača 1928.", "razdoblje": "Osnutak (1925. – 1929.)", "naslov": "Adžija brani čitaonicu od policije", "tekst": "Nakon nereda u čitaonici redarstvo želi privesti sve posjetitelje. Tek intervencija Božidara Adžije to sprječava. Iste godine knjižnica ima 403 člana.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1929, "datum": "1. 1. 1929.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Čitaonica zatvorena", "tekst": "Zbog nereda, krađa i političkog rizika čitaonica se zatvara. Nekoliko dana kasnije uvodi se Šestosiječanjska diktatura i dio knjiga završava „u sanducima“, zabranjen za posudbu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1929, "datum": "1929.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Prvi katalog", "tekst": "Tiskan je Popis knjiga Radničke biblioteke u Zagrebu, prvi katalog knjižnice. Fond broji 3 616 knjiga, a članstvo 683 člana.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1929, "datum": "1929.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Pogled prema Ljubljani", "tekst": "Božidar Adžija i Josip Jaklin posjećuju Radničku biblioteku u Ljubljani. Ljubljanski i bečki uzori pratit će knjižnicu cijelo desetljeće.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1929, "datum": "listopad 1929.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Krleža i zakasnina", "tekst": "Knjižnica opominje Miroslava Krležu zbog jedanaest nevraćenih knjiga, uglavnom o Lenjinu. Krleža odgovara da mu je „policija odnijela sve knjige“. Jedna koju je vratio i danas se čuva u Zaštićenom fondu.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1931, "datum": "1931.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Gojko Berberović na čelu knjižnice", "tekst": "Novi upravitelj čuva autonomiju knjižnice pod pritiskom beogradskih vlasti i brani pravo lijeve inteligencije na njezin fond.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1931, "datum": "1931.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Natječaj za palaču radničkih ustanova", "tekst": "Raspisan je natječaj za zgradu u Klaićevoj ulici, s čitaonicom za 100 osoba i skladištem za 10 000 svezaka. Zgrada nikad nije sagrađena, ali ideja vodi prema Radničkom domu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1931, "datum": "kraj 1931.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Studenti brojniji od radnika", "tekst": "U članstvu je 258 studenata i 214 službenika, a 70 metalaca, 32 šegrta i 18 odjevnih radnika. Jedina javna knjižnica otvorena svim slojevima privlači cijeli grad.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1932, "datum": "lipanj 1932.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Otkupljena Leitnerova biblioteka", "tekst": "Za 26 000 dinara otkupljena je biblioteka osječkog pravnika Marka Leitnera. Njegove se knjige s oznakom vlasnika i danas nalaze u fondu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1933, "datum": "1933.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Tisuću članova", "tekst": "Do kraja godine knjižnica ima 1 086 članova i 12 083 posjeta: svaki član dolazi otprilike jednom mjesečno.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1934, "datum": "15. 10. 1934.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Čitaonica ponovno otvorena", "tekst": "Nakon obnove i novog Poslovnog reda s članskim iskaznicama čitaonica ponovno radi u Haulikovoj 10. Pušenje je u njoj zabranjeno od prosinca.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1934, "datum": "1934.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Fond prelazi 10 000 knjiga", "tekst": "U pet godina fond je narastao s 3 616 na 10 100 knjiga. Najviše posuđuju učenici i studenti.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1935, "datum": "listopad 1935.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Dozvola za gradnju Radničkoga doma", "tekst": "Izdana je građevinska dozvola za Radnički dom na Krešimirovu trgu. Projektanti su Vladimir Šterk, Jovan Korka, Đorđe Kiverov i Đorđe Krekić, a prvi kat od početka je namijenjen knjižnici.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1937, "datum": "2. 10. 1937.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Mirko Kus Nikolajev preuzima knjižnicu", "tekst": "Novi upravitelj putuje u Ljubljanu proučiti tamošnju knjižnicu i priprema preseljenje prema suvremenim europskim standardima.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1938, "datum": "travanj 1938.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Preseljenje u Radnički dom", "tekst": "Knjižnica se seli u novu modernističku uglovnicu na Krešimirovu trgu (danas Trg kralja Petra Krešimira IV). Na tom je mjestu i danas.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1938, "datum": "16. 5. 1938.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Putna biblioteka za provinciju", "tekst": "Radnička komora pokreće pokretnu biblioteku za radnike izvan Zagreba, preteču kasnije bibliobusne službe.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1939, "datum": "11. 11. 1939.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "200 knjiga na dan", "tekst": "Kus Nikolajev za Večer kaže da se dnevno posudi oko 200 knjiga. Karl May je „idol srednjoškolaca i šegrta“, a čitaju se i Kant, Hegel i Nietzsche.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1940, "datum": "1940.", "razdoblje": "Između diktature i Radničkoga doma (1929. – 1941.)", "naslov": "Rekordna posudba", "tekst": "Knjižnica bilježi 50 265 posudbi uz 3 255 članova i 16 349 knjiga.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1941, "datum": "svibanj 1941.", "razdoblje": "U ratu (1941. – 1945.)", "naslov": "Zatvaranje i ponovno otvaranje", "tekst": "Nakon uspostave NDH knjižnica je u svibnju zatvorena, a već u lipnju ponovno otvorena. Upravitelj Stanislav Šimić gotovo u cijelosti čuva međuratni fond.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1941, "datum": "1941.", "razdoblje": "U ratu (1941. – 1945.)", "naslov": "Smrt Božidara Adžije", "tekst": "Godine 1941. život gubi osnivač knjižnice Božidar Adžija (1890. – 1941.). Knjižnica danas nosi njegovo ime.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1942, "datum": "1942.", "razdoblje": "U ratu (1941. – 1945.)", "naslov": "Knjige protiv struje", "tekst": "Na službenom popisu nabave našao se i Zweigov roman Nestrpljivo srce, zabranjen u nacističkoj Njemačkoj i NDH. Knjižnica ima 4 313 članova.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1944, "datum": "veljača 1944.", "razdoblje": "U ratu (1941. – 1945.)", "naslov": "Knjižnica zatvorena do kraja rata", "tekst": "Od veljače 1944. do srpnja 1945. knjižnica ne radi. Nabava periodike za cijelu mrežu radničkih knjižnica obustavljena je.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1945, "datum": "25. 7. 1945.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Ponovno otvaranje", "tekst": "Knjižnica se ponovno otvara. Vodi se nova evidencija članova od broja 1, a u rujnu je organiziran prvi susret s književnicima.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1946, "datum": "1946.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Revizija fonda", "tekst": "Počinje uklanjanje nepoćudne građe. Od 1945. do 1990. s popisa dostupnih knjiga uklonit će se 814 naslova.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1947, "datum": "1947.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Nova uprava", "tekst": "Stanislav Šimić odlazi, a knjižnicu do 1950. vodi Šime Vučetić.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1950, "datum": "1950.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Vladimir Vujnović direktor", "tekst": "Počinje razdoblje modernizacije: tečajevi knjižničarstva, predmetni katalog i popularizacija knjige među radništvom.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1951, "datum": "1951.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Počinje predmetna obrada", "tekst": "Knjižnica uvodi predmetni katalog, koji će postati njezina posebnost u zagrebačkoj knjižničnoj mreži. Na 35 905 knjiga bilježi 82 620 posudbi.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1952, "datum": "1952.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Kino u Radničkom domu", "tekst": "Knjižnica vodi kino u velikoj dvorani (danas Tvornica kulture): 51 predstava, od Točno u podne do Sve o Evi. Obnovljene su pokretne biblioteke u tvornicama.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1955, "datum": "1955.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Klub ljubitelja lijepe knjige", "tekst": "Uz Radničko sveučilište počinju susreti s književnicima i profesorima zagrebačke stilističke škole.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1955, "datum": "4. 11. 1955.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Prvi Književni petak", "tekst": "Mladi knjižničari pokreću tribinu koja će postati najdugovječnija zagrebačka književna tribina. Prvi gost je Vladan Desnica.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1956, "datum": "7. 12. 1956.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "1 500 ljudi na Petku", "tekst": "Na nastupu Dobrice Ćosića okuplja se oko 1 500 posjetitelja. Te godine knjižnica ima više od 5 000 članova i 56 697 posjeta.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1959, "datum": "23. 10. 1959.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "2 000 ljudi za Ćopića", "tekst": "Nastup Branka Ćopića na Književnom petku prati čak 2 000 ljudi.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1960, "datum": "16. 5. 1960.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Sartre u Radničkom domu", "tekst": "Jean-Paul Sartre nastupa na Književnom petku, na oduševljenje zagrebačke kulturne javnosti.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1960, "datum": "1960.", "razdoblje": "Poslijeratna obnova i Književni petak (1945. – 1961.)", "naslov": "Više prostora", "tekst": "Radničko sveučilište seli u novu zgradu u Vukovarskoj, a knjižnica dobiva prostor za proširenje i adaptaciju.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1962, "datum": "1962.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Centar „Božidar Adžija“", "tekst": "Knjižnica ulazi u Centar za dokumentaciju i informacije o suvremenom radničkom pokretu „Božidar Adžija“, pod vodstvom Mije Harmine.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1963, "datum": "1963.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Obnova i decimalna klasifikacija", "tekst": "Prostor se obnavlja prema projektu Darka Venturinija i Bruna Planinšeka, a fond se prilagođava decimalnoj klasifikaciji.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1964, "datum": "prosinac 1964.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Javna rasprava o budućnosti knjižnice", "tekst": "Gajo Peleš objavljuje komentar Što da se učini s bivšom Radničkom bibliotekom? i pokreće raspravu zagrebačkih intelektualaca.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1965, "datum": "1965.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Antoninijev interijer", "tekst": "Arhitekt i dizajner Mario Antonini oblikuje pregradne stijene i police koje su i danas prepoznatljiv dio knjižnice.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1967, "datum": "1967.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Ponovno samostalna", "tekst": "Aktom Skupštine grada Zagreba knjižnica ponovno djeluje samostalno, pod vodstvom Vere Mudri-Škunce. Književni petak seli u Medulićevu ulicu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1969, "datum": "kraj 1969.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Stručna knjižnica", "tekst": "Fond broji 87 866 svezaka, od toga 49 149 stručne literature i 33 780 beletristike. Omjer je obrnut od većine narodnih knjižnica.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1970, "datum": "1970.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Rađa se mreža Knjižnica grada Zagreba", "tekst": "Radnička biblioteka integrira se s Gradskom knjižnicom. Počinje stvaranje jedinstvene gradske mreže.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1970, "datum": "1970.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Autobus postaje bibliobus", "tekst": "Knjižnica otkupljuje autobus od ZET-a i preuređuje ga za prijevoz i posudbu knjiga. Surađuje i s pet zagrebačkih đačkih domova.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1972, "datum": "1972.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Istraga nakon hrvatskoga proljeća", "tekst": "Interna istraga ispituje izlaganja na Književnom petku u sezoni 1970./1971., a djelatnici knjižnica podvrgnuti su provjeri.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1974, "datum": "1974.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Nabava knjiga raste 46 %", "tekst": "Namjenska sredstva od poreza na šund omogućuju znatno veću nabavu knjiga.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1975, "datum": "1975.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Marija Pichler na čelu knjižnice", "tekst": "Počinje najdulji mandat u povijesti knjižnice, sve do 1999.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1976, "datum": "1976. – 1979.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Svijet na policama", "tekst": "Knjižnica naručuje desetke uglednih stranih časopisa, među njima Les Temps modernes Sartrea i Simone de Beauvoir.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1978, "datum": "1978.", "razdoblje": "Specijalizacija i gradska mreža (1962. – 1979.)", "naslov": "Bibliobusna služba", "tekst": "Na području Zagreba i okolice počinje djelovati bibliobusna služba.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1980, "datum": "1980.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "Izložba Tito i knjiga", "tekst": "Knjižnica priređuje reprezentativnu izložbu postavljenu u Karlovcu, Zagrebu i Sloveniji.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1982, "datum": "1982.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "Zbirka marksističke literature", "tekst": "Uz potporu sindikata počinje izrada zbirke marksističke literature i literature o radničkom pokretu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1983, "datum": "1983.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "10 500 članova, 1 000 naslova", "tekst": "U krizi knjižnica za 10 500 članova može kupiti tek oko 1 000 naslova godišnje.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1985, "datum": "1985.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "Prvi računalni terminal", "tekst": "Knjižnica se terminalom povezuje s Nacionalnom i sveučilišnom bibliotekom. Iste godine daruje knjige novim knjižnicama na Knežiji i u Jakovlju.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1988, "datum": "lipanj 1988.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "Nastaje Zaštićeni fond", "tekst": "Najvrjednija građa izdvaja se i dobiva oznaku „Zaštićeni fond“. Akciju vodi Bjanka Auslender.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1990, "datum": "1990.", "razdoblje": "Kriza i modernizacija (1980. – 1990.)", "naslov": "Knjige na podu", "tekst": "U slobodnom pristupu samo je 1 600 knjiga, a u spremištu 150 000. Dio građe zbog nedostatka prostora stoji na podu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1991, "datum": "rujan 1991.", "razdoblje": "U samostalnoj Hrvatskoj (1990. – 1999.)", "naslov": "Preuređenje u ratnoj godini", "tekst": "Knjižnica dobiva cijeli prvi kat, ulaz se seli u Šubićevu ulicu, a većina knjiga unosi se u računalni sustav. Lenjinov trg postaje Trg kralja Petra Krešimira IV.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1992, "datum": "1992. – 1993.", "razdoblje": "U samostalnoj Hrvatskoj (1990. – 1999.)", "naslov": "Integracija gradskih knjižnica", "tekst": "Sve zagrebačke gradske knjižnice integriraju se, a knjižnica dobiva matičnost za predmetni katalog. U ratu se uvode čuvarska služba i provjera isprava.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1995, "datum": "1995.", "razdoblje": "U samostalnoj Hrvatskoj (1990. – 1999.)", "naslov": "Knjižnica Božidara Adžije", "tekst": "Radnička biblioteka „Božidar Adžija“ mijenja ime u Knjižnica Božidara Adžije, koje nosi i danas.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 1996, "datum": "1996.", "razdoblje": "U samostalnoj Hrvatskoj (1990. – 1999.)", "naslov": "Izložba Amnesty Internationala", "tekst": "Za Međunarodni dan ljudskih prava knjižnica ugošćuje izložbu Amnesty Internationala, a UNICEF sufinancira nabavu građe.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 1999, "datum": "1999.", "razdoblje": "U samostalnoj Hrvatskoj (1990. – 1999.)", "naslov": "Dragica Previšić preuzima vodstvo", "tekst": "Počinje razdoblje digitalizacije i usklađivanja s međunarodnim standardima.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2002, "datum": "9. 9. 2002.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Velika obnova", "tekst": "Knjižnica se zatvara zbog obnove 970 m² prostora, vrijedne oko 5 milijuna kuna. Uvode se police na tračnicama, pristup za osobe s invaliditetom i zaštita od krađe.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2003, "datum": "18. 11. 2003.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Otvorena obnovljena knjižnica", "tekst": "Knjižnica dobiva današnji izgled, a ulaz se vraća na glavni ulaz Radničkoga doma.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 2004, "datum": "2004.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Iskaznice zamjenjuje ZaKi", "tekst": "Ručno pisane iskaznice zamjenjuje računalni sustav ZaKi, a inventarne knjige vode se elektronički.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2006, "datum": "2006.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Zatvoreni listićni katalozi", "tekst": "Abecedni, naslovni, stručni i predmetni listićni katalozi povlače se u arhivu. Pretraživanje seli na mrežni katalog.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2013, "datum": "2013.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Rajka Gjurković Govorčin voditeljica", "tekst": "Knjižnica počinje sustavno istraživati i predstavljati vlastitu baštinu.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2015, "datum": "2015.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Izložba o radničkim organizacijama", "tekst": "Izložba Radničke organizacije u Zagrebu od početaka radničkog pokreta do 1941. godine (autor Ivan Jelić).", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2017, "datum": "2017. – 2020.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Cenzurirani fond sačuvan kao cjelina", "tekst": "Revizija fonda završava odlukom da se cenzurirane knjige trajno sačuvaju unutar Zaštićenoga fonda. Danas ih je 526.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2018, "datum": "2018.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Glasovi Književnog petka", "tekst": "Izložba digitalizirane zagrebačke baštine (autorica Martina Strbad). Iste godine obrađene su inventarne knjige od 1926. do 1962.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2019, "datum": "2019.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Ivan Jelić voditelj knjižnice", "tekst": "Novi voditelj nastavlja rad na baštini, edukaciji korisnika i pripremi stogodišnjice.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2020, "datum": "2020.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Podcast Zvukmark", "tekst": "Usred pandemije knjižnica pokreće podcast s piscima i znanstvenicima, digitalnog nasljednika Književnog petka.", "slika": "", "opis_slike": "", "istaknuto": "da"}, {"godina": 2023, "datum": "2023.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Tri knjige za mene", "tekst": "Korisnici mogu zatražiti osobne čitateljske preporuke u digitalnom obliku.", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2025, "datum": "2025.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Izložba periodike", "tekst": "Izložba Periodika iz Zbirke časopisa i Zbirke novina Knjižnice Božidara Adžije (Ivana Sabljak, Marijana Soldo).", "slika": "", "opis_slike": "", "istaknuto": ""}, {"godina": 2027, "datum": "8. 1. 2027.", "razdoblje": "Novo stoljeće (2000. – 2027.)", "naslov": "Sto godina", "tekst": "Knjižnica Božidara Adžije slavi stotu obljetnicu. Prvih sto godina samo je početak.", "slika": "", "opis_slike": "", "istaknuto": "da"}];
+
+/* CSV parser (navodnici, zarezi i novi redovi unutar ćelija) */
+function parseCSV(text){
+  const rows=[];let row=[],f="",q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++} else q=false } else f+=c }
+    else if(c==='"') q=true;
+    else if(c===','){row.push(f);f=""}
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n')i++; row.push(f);rows.push(row);row=[];f="" }
+    else f+=c;
+  }
+  if(f!==""||row.length){row.push(f);rows.push(row)}
+  const head=rows.shift().map(h=>h.trim().toLowerCase());
+  return rows.filter(r=>r.some(x=>x.trim())).map(r=>Object.fromEntries(head.map((h,i)=>[h,(r[i]||"").trim()])));
+}
+
+/* Google Drive poveznice → izravna slika */
+function imgUrl(u){
+  if(!u) return "";
+  const m=u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);
+  return m?`https://lh3.googleusercontent.com/d/${m[1]}=w1600`:u;
+}
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isKey=v=>/^(da|x|1|true|yes)$/i.test(String(v||"").trim());
+
+let DATA=[],ERA="sve";
+const tl=document.getElementById("tl"),chips=document.getElementById("chips"),q=document.getElementById("q"),count=document.getElementById("count");
+
+function eras(){const s=[];DATA.forEach(d=>{if(d.razdoblje&&!s.includes(d.razdoblje))s.push(d.razdoblje)});return s}
+function shortEra(e){const m=e.match(/\((.*)\)/);return m?m[1].replace(/\s/g,""):e}
+
+function renderChips(){
+  const list=["sve",...eras()];
+  chips.innerHTML=list.map(e=>`<button class="chip" type="button" data-e="${esc(e)}" aria-pressed="${e===ERA}" title="${esc(e)}">${e==="sve"?"Sve":esc(e.replace(/\s*\(.*\)/,""))+" · "+esc(shortEra(e))}</button>`).join("");
+}
+function render(){
+  const term=q.value.trim().toLowerCase();
+  const rows=DATA.filter(d=>(ERA==="sve"||d.razdoblje===ERA)&&(!term||(d.naslov+" "+d.tekst+" "+d.godina+" "+d.datum).toLowerCase().includes(term)));
+  count.textContent=`${rows.length} / ${DATA.length} događaja`;
+  if(!rows.length){tl.innerHTML=`<p class="empty">Nema događaja za taj upit. Pokušajte s drugom riječi ili odaberite „Sve“.</p>`;return}
+  let html="",cur=null,n=0;const order=eras();
+  rows.forEach(d=>{
+    if(d.razdoblje!==cur){
+      if(cur!==null) html+="</section>";
+      cur=d.razdoblje;const idx=order.indexOf(cur)+1;
+      html+=`<section class="era" id="r${idx}"><div class="era-head"><span class="drawer">Ladica ${String(idx).padStart(2,"0")}</span><h2>${esc(cur)}</h2></div>`;
+    }
+    n++;const key=isKey(d.istaknuto),src=imgUrl(d.slika);
+    html+=`<article class="ev${key?" key":""}">
+      <div class="year">${esc(d.godina)}<small>${esc(d.datum)}</small></div>
+      <div class="card">
+        <div class="sig"><span>KBA · ${esc(d.godina)} · ${String(n).padStart(3,"0")}</span>${key?'<span class="mark">ISTAKNUTO</span>':""}</div>
+        <h3>${esc(d.naslov)}</h3>
+        <p>${esc(d.tekst)}</p>
+        ${src?`<figure><button type="button" data-src="${esc(src)}" data-cap="${esc(d.opis_slike)}"><img src="${esc(src)}" alt="${esc(d.opis_slike||d.naslov)}" loading="lazy"></button>${d.opis_slike?`<figcaption>${esc(d.opis_slike)}</figcaption>`:""}</figure>`:""}
+      </div></article>`;
+  });
+  tl.innerHTML=html+"</section>";
+}
+chips.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;ERA=b.dataset.e;renderChips();render();window.scrollTo({top:tl.offsetTop-80,behavior:"smooth"})});
+q.addEventListener("input",render);
+
+const lb=document.getElementById("lb"),lbi=document.getElementById("lbi"),lbc=document.getElementById("lbc");
+tl.addEventListener("click",e=>{const b=e.target.closest("figure button");if(!b)return;lbi.src=b.dataset.src;lbc.textContent=b.dataset.cap||"";lb.hidden=false;document.getElementById("lbx").focus()});
+function closeLb(){lb.hidden=true;lbi.src=""}
+document.getElementById("lbx").addEventListener("click",closeLb);
+lb.addEventListener("click",e=>{if(e.target===lb)closeLb()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!lb.hidden)closeLb()});
+
+function start(rows,msg){
+  DATA=rows.map(r=>({...r,godina:String(r.godina||"").trim()})).filter(r=>r.godina&&r.naslov)
+    .sort((a,b)=>parseInt(a.godina)-parseInt(b.godina));
+  const note=document.getElementById("note");
+  if(msg){note.textContent=msg;note.hidden=false}
+  renderChips();render();
+}
+if(SHEET_CSV_URL){
+  fetch(SHEET_CSV_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.text()})
+    .then(t=>start(parseCSV(t)))
+    .catch(()=>start(FALLBACK,"Tablica se trenutačno ne može učitati, prikazana je spremljena verzija lente."));
+}else start(FALLBACK);
+</script>
+</body>
+</html>
